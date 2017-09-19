@@ -31,6 +31,7 @@ Base class for all game objects.  Provides fast run-time type checking and run-t
 instancing of objects.
 
 */
+#include <stdint.h>
 
 #ifndef __SYS_CLASS_H__
 #define __SYS_CLASS_H__
