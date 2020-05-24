@@ -64,6 +64,8 @@ const int WIN_WANTENTER		= 0x01000000;
 
 const int WIN_DESKTOP		= 0x10000000;
 
+const int WIN_SCALETO43		= 0x20000000; // DG: for the "scaleto43" window flag (=> scale window to 4:3 with "empty" bars left/right or above/below)
+
 const char CAPTION_HEIGHT[] = "16.0";
 const char SCROLLER_SIZE[] = "16.0";
 const int SCROLLBAR_SIZE = 16;
@@ -402,6 +404,7 @@ protected:
 	idWinVec4	foreColor;
 	idWinVec4	hoverColor;
 	idWinVec4	borderColor;
+	idWinVec4	pillarboxColor; // JW : color to draw behind 4:3 menus when playing in widescreen mode
 	idWinFloat	textScale;
 	idWinFloat	rotate;
 	idWinStr	text;

@@ -54,6 +54,7 @@ public:
 	void				DrawMaterial(float x, float y, float w, float h, const idMaterial *mat, const idVec4 &color, float scalex = 1.0, float scaley = 1.0);
 	void				DrawRect(float x, float y, float width, float height, float size, const idVec4 &color);
 	void				DrawFilledRect(float x, float y, float width, float height, const idVec4 &color);
+	void				DrawFilledRectNo43(float x, float y, float width, float height, const idVec4 &color); // JW : for drawing rectangles unaffected by the 4:3 menu hack (to draw pillarboxes behind menus with r_useFramebuffer 1)
 	int					DrawText(const char *text, float textScale, int textAlign, idVec4 color, idRectangle rectDraw, bool wrap, int cursor = -1, bool calcOnly = false, idList<int> *breaks = NULL, int limit = 0 );
 	void				DrawMaterialRect( float x, float y, float w, float h, float size, const idMaterial *mat, const idVec4 &color);
 	void				DrawStretchPic(float x, float y, float w, float h, float s0, float t0, float s1, float t1, const idMaterial *mat);
@@ -80,6 +81,7 @@ public:
 	void				SetCursor(int n);
 
 	void				AdjustCoords(float *x, float *y, float *w, float *h);
+	void				AdjustCursorCoords(float *x, float *y, float *w, float *h); // DG: added for "render menus as 4:3" hack
 	bool				ClippedCoords(float *x, float *y, float *w, float *h);
 	bool				ClippedCoords(float *x, float *y, float *w, float *h, float *s1, float *t1, float *s2, float *t2);
 
@@ -95,6 +97,12 @@ public:
 	bool				GetOverStrike() { return overStrikeMode; }
 
 	void				DrawEditCursor(float x, float y, float scale);
+
+	// DG: this is used for the "make sure menus are rendered as 4:3" hack
+	void				SetMenuScaleFix(bool enable);
+	bool				IsMenuScaleFixActive() const {
+		return fixOffsetForMenu.x != 0.0f || fixOffsetForMenu.y != 0.0f;
+	}
 
 	enum {
 		CURSOR_ARROW,
@@ -163,6 +171,10 @@ private:
 	bool				initialized;
 
 	bool				mbcs;
+
+	// DG: this is used for the "make sure menus are rendered as 4:3" hack
+	idVec2				fixScaleForMenu;
+	idVec2				fixOffsetForMenu;
 };
 
 #endif /* !__DEVICECONTEXT_H__ */
